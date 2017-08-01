@@ -1,0 +1,9 @@
+FROM apache/zeppelin:0.7.2
+
+RUN mkdir -p /azurestorage
+ADD azure-storage-5.4.0.jar /azurestorage/azure-storage-5.4.0.jar
+ENV MASTER spark://spark-master:7077
+ENV SPARK_SUBMIT_OPTIONS --jars /azurestorage/azure-storage-5.4.0.jar
+ENTRYPOINT [ "/usr/bin/tini", "--" ]
+WORKDIR ${Z_HOME}
+CMD ["bin/zeppelin.sh"]
