@@ -11,7 +11,7 @@ services:
     networks:
       - netwrk
     ports:
-    - "8088:8088"
+    - "8081:8080"
     - "7077:7077"
     command: /usr/local/bootstrap_master.sh
   spark-slave1:
