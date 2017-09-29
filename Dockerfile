@@ -1,5 +1,5 @@
 FROM apache/zeppelin:0.7.2
-
+MAINTAINER awsazuser@gmail.com
 # spark
 RUN wget https://d3kbcqa49mib13.cloudfront.net/spark-2.1.1-bin-hadoop2.7.tgz
 RUN tar -xvzf spark-2.1.1-bin-hadoop2.7.tgz -C /usr/local/

@@ -2,12 +2,12 @@ version: "3"
 
 services:
   spark-master:
-    image: spkv1:latest
+    image: awsazuser/spkv1:latest
     hostname : spark-master
     deploy:
       replicas: 1
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.role != manager]
     networks:
       - netwrk
     ports:
@@ -15,20 +15,20 @@ services:
     - "7077:7077"
     command: /usr/local/bootstrap_master.sh
   spark-slave1:
-    image: spkv1:latest
-    deploy:
-      replicas: 1
-      placement:
-        constraints: [node.role == manager]
-    networks:
-      - netwrk
-    command: /usr/local/bootstrap_slave.sh
-  zeppelin:
-    image: zpkv1:latest
+    image: awsazuser/spkv1:latest
     deploy:
       replicas: 1
       placement:
         constraints: [node.role != manager]
+    networks:
+      - netwrk
+    command: /usr/local/bootstrap_slave.sh
+  zeppelin:
+    image: awsazuser/zplv1:latest
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
     ports:
     - "8080:8080"
     networks:
