@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  spark-master:
+    image: awsazuser/spkv22:latest
+    hostname : spark-master
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role != manager]
+    networks:
+      - netwrk
+    ports:
+    - "8081:8080"
+    - "7077:7077"
+    command: /usr/local/bootstrap_master.sh
+  spark-slave1:
+    image: awsazuser/spkv22:latest
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role != manager]
+    networks:
+      - netwrk
+    command: /usr/local/bootstrap_slave.sh
+  jupyter:
+    image: jupyter/all-spark-notebook 
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    ports:
+    - "8888:8888"
+    networks:
+      - netwrk
+ 
+networks:
+  netwrk:
